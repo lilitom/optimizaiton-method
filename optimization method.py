@@ -1,5 +1,20 @@
 import numpy as np
 import random
+def readfile(fileneme):
+    label_mat=[]
+    input_array=[]
+    with open(fileneme,'r') as f:
+        for i in f.readlines():
+            a = []
+            line=i.split('\t')
+            for j in line:
+                a.append(float(j))
+            input_array.append(a)
+        input_array=np.array(input_array)
+        label_mat=input_array[:,np.shape(input_array)[1]-1]
+        input_array=np.delete(input_array,np.shape(input_array)[1]-1,1)
+    return input_array,label_mat
+    
 def batchgradAscent(input_mat,label_mat,alpha=0.001):
     if np.shape(input_mat)[1]!=np.shape(label_mat)[0]:#make sure the dimensio
         return False
